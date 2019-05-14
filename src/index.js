@@ -3,6 +3,8 @@ const lessToJson = require("less-to-json");
 const fs = require("fs");
 const path = require("path");
 
+let filePath = path.resolve(__dirname + "/lessDir");
+
 // debugger
 const tempObj = lessToJson(path.dirname(__filename) + "/theme.less"); // key - 颜色
 
@@ -11,36 +13,35 @@ Object.keys(tempObj).forEach(value => {
   // 把value转换为key
   mapObj[tempObj[value]] = value.toLowerCase();
 });
-// const mapObj = JSON.parse(mapObj)
-// console.log(mapObj);
-fs.readFile(path.dirname(__filename) + "/text.less", "utf8", function(
-  err,
-  data
-) {
-  if (err) {
-    console.log(err);
-  }
-  const result = data.replace(/#{1}[a-zA-Z0-9]{5}[a-zA-Z0-9]/g, function(
-    value
-  ) {
-    // debugger
-    console.log(value);
-    // console.log(mapObj);
-    if (mapObj[value.toLowerCase()]) {
-      console.log(mapObj[value.toLowerCase()]);
-      return "@" + mapObj[value];
+
+fs.readdir(filePath, "utf-8", function(err, data) {
+  data.forEach(function(item, index) {
+    if (/.less/.test(item)) {
+      replaceColor(filePath + "/" + item,filePath);
     }
-    return value;
   });
-  fs.writeFile(
-    path.dirname(__filename) + "/result.less",
-    result,
-    "utf8",
-    function(err) {
-      if (err) return console.log(err);
-    }
-  );
-  // console.log(result);
 });
+
+function replaceColor(url,baseUrl) {
+  console.log(url);
+  fs.readFile(url, "utf8", function(err, data) {
+    if (err) {
+      console.log(err);
+    }
+    const result = data.replace(/#{1}[a-zA-Z0-9]{5}[a-zA-Z0-9]/g, function(
+      value
+    ) {
+      // console.log(mapObj);
+      if (mapObj[value.toLowerCase()]) {
+        console.log(mapObj[value.toLowerCase()]);
+        return "@" + mapObj[value];
+      }
+      return value;
+    });
+    fs.writeFile(baseUrl + "/result.less", result, "utf8", function(err) {
+      if (err) return console.log(err);
+    });
+  });
+}
 
 // console.log(Object.keys(mapObj));
