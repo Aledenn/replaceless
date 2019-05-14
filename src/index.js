@@ -3,9 +3,8 @@ const lessToJson = require("less-to-json");
 const fs = require("fs");
 const path = require("path");
 
-let filePath = path.resolve(__dirname + "/lessDir");
+let filePath = path.resolve("/Users/lee/companyCode/mes_index2/src/pages");
 
-// debugger
 const tempObj = lessToJson(path.dirname(__filename) + "/theme.less"); // key - 颜色
 
 const mapObj = {};
@@ -62,21 +61,34 @@ function wrap(filePath, baseUrl) {
 // });
 
 function replaceColor(url, filedir) {
-  console.log(url);
   fs.readFile(url, "utf8", function(err, data) {
     if (err) {
       console.log(err);
     }
-    const result = data.replace(/#{1}[a-zA-Z0-9]{5}[a-zA-Z0-9]/g, function(
+    let change = false;
+
+    let result = data.replace(/#{1}[a-zA-Z0-9]{5}[a-zA-Z0-9]/g, function(
       value
     ) {
-      // console.log(mapObj);
       if (mapObj[value.toLowerCase()]) {
-        console.log(mapObj[value.toLowerCase()]);
-        return "@" + mapObj[value];
+        return "@" + mapObj[value.toLowerCase()].toLowerCase();
       }
+      change = true;
       return value;
     });
+    if (change) {
+      result = result.replace(
+        /@import '~antd\/lib\/style\/themes\/default.less';/,
+        ""
+      ); // 去除引入antd
+      const hasImport = /@import '~@\/theme\/theme.less';/.test(result);
+      if (!hasImport) {
+        result =
+          result.slice(0, 0) +
+          '@import "~@/theme/theme.less";\n' +
+          result.slice(0);
+      }
+    }
     fs.writeFile(filedir, result, "utf8", function(err) {
       if (err) return console.log(err);
     });
