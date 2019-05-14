@@ -1,0 +1,62 @@
+{
+  "_from": "less-to-json",
+  "_id": "less-to-json@1.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-1ItmxVFw76yiQgr2MUTGy7bTHT2tT6CcZ28grgw/gWNy2Q3WwFfSHL88sWUBpTXGFonlKd2yCDhtJFJdGjzqHA==",
+  "_location": "/less-to-json",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "less-to-json",
+    "name": "less-to-json",
+    "escapedName": "less-to-json",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/less-to-json/-/less-to-json-1.2.0.tgz",
+  "_shasum": "56cf1b9806000c9889fe3bddff6ef318dc3a40aa",
+  "_spec": "less-to-json",
+  "_where": "/Users/lee/myCode/lessReplace",
+  "author": {
+    "name": "vvpvvp"
+  },
+  "bin": {
+    "lessto": "bin/lessto.js"
+  },
+  "bugs": {
+    "url": "https://github.com/vvpvvp/less-to-json/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "commander": "^2.19.0",
+    "fs": "0.0.1-security",
+    "less": "^3.9.0",
+    "log4js": "^4.0.2",
+    "path": "^0.12.7"
+  },
+  "deprecated": false,
+  "description": "less file convert to json",
+  "homepage": "https://github.com/vvpvvp/less-to-json#readme",
+  "keywords": [
+    "less",
+    "json",
+    "convert"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "less-to-json",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvpvvp/less-to-json.git"
+  },
+  "scripts": {
+    "test": "node test/test"
+  },
+  "version": "1.2.0"
+}
